@@ -1,15 +1,10 @@
 package com.unear.admin.auth.dto.request;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 
 @Getter
-@Setter
-@NoArgsConstructor
-public class LoginRequestDto {
-
+public class AdminRegisterRequestDto {
     private String email;
     private String password;
+    private String name;
 }
