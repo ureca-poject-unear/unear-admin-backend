@@ -18,6 +18,7 @@ spring:
 
   jpa:
     hibernate:
+      # ddl-auto: validate  #최종 환경에서 사용
       ddl-auto: update
     show-sql: true
 
