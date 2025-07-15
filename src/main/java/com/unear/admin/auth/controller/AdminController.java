@@ -19,6 +19,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -85,3 +86,6 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success("로그아웃 완료", null));
     }
 }
+
+
+
