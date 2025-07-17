@@ -7,7 +7,7 @@ import com.unear.admin.event.dto.EventRequestDto;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
 import com.unear.admin.event.service.EventService;
-import com.unear.admin.places.dto.PlaceRequestDto;
+import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import com.unear.admin.places.entity.Place;
 import com.unear.admin.places.repository.PlaceRepository;
 import jakarta.transaction.Transactional;
