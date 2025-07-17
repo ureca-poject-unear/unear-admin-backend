@@ -20,17 +20,18 @@ public class SecurityConfig {
 
     private final CustomAdminDetailsService customAdminDetailsService;
 
+    private static final String[] WHITE_LIST = {
+            "/auth/**",
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .securityMatchers(matchers -> matchers.requestMatchers("/**"))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/auth/login",
-                                "/auth/signup",
-                                "/auth/logout"
-                        ).permitAll()
+                        .requestMatchers(WHITE_LIST).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
