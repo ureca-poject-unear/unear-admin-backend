@@ -25,7 +25,7 @@ public class CouponTemplate {
     private String couponName;
     private String description;
 
-    private String discountPolicy;
+    private DiscountPolicy discountPolicy;
     private Integer remainingQuantity;
 
     private LocalDate couponStart;
