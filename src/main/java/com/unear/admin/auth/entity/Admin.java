@@ -29,4 +29,7 @@ public class Admin {
 
     @Column(name = "admin_name")
     private String name;
+
+    @Column(name = "admin_role", nullable = false)
+    private String role;
 }
