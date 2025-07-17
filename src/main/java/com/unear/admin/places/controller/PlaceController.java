@@ -28,10 +28,10 @@ public class PlaceController {
     }
 
     @GetMapping("/{eventId}/partners")
-    public ResponseEntity<List<PlaceResponseDto>> getPartnersWithinEventRadius(
-            @PathVariable Long eventId
+    public ResponseEntity<ApiResponse<List<PlaceResponseDto>>> getPartnersWithinEventRadius(
+            @PathVariable @Min(1) Long eventId
     ) {
-        return ResponseEntity.ok(placeService.getPartnersWithinEvent(eventId));
+        List<PlaceResponseDto> partners = placeService.getPartnersWithinEvent(eventId);
+        return ResponseEntity.ok(ApiResponse.success(partners));
     }
-
 }
