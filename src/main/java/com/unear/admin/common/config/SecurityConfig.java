@@ -22,7 +22,6 @@ public class SecurityConfig {
 
     private static final String[] WHITE_LIST = {
             "/auth/**",
-            "/admin/**"
     };
 
     @Bean
@@ -32,6 +31,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(WHITE_LIST).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form.disable())
