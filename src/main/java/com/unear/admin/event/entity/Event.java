@@ -51,6 +51,9 @@ public class Event {
 
     public void setCouponTemplate(CouponTemplate couponTemplate) {
         this.couponTemplate = couponTemplate;
+        if (couponTemplate != null) {
+            couponTemplate.setEvent(this);
+        }
     }
 
     public static Event fromDto(EventRequestDto dto) {
