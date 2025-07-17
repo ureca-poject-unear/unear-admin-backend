@@ -35,6 +35,10 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public List<PlaceResponseDto> getPartnersWithinEvent(Long eventId) {
+        // 이벤트 존재 여부 검증
+        eventRepository.findById(eventId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
+        
         List<Place> result = placeRepository.findPartnersWithinEventRadius(eventId);
         return result.stream()
                 .map(PlaceResponseDto::from)
