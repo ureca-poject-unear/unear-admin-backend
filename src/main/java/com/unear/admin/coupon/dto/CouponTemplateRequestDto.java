@@ -16,14 +16,12 @@ public class CouponTemplateRequestDto {
 
     private String couponName;
     private String description;
-    private String discountPolicy;
+    @Builder.Default
+    private DiscountPolicy discountPolicy = DiscountPolicy.COUPON_FCFS;
     private Integer remainingQuantity;
 
     private LocalDate couponStart;
     private LocalDate couponEnd;
-
-    @Builder.Default
-    private DiscountPolicy discountCode = DiscountPolicy.COUPON_FCFS;
 
     public CouponTemplate toEntity(Event event) {
         return CouponTemplate.builder()
