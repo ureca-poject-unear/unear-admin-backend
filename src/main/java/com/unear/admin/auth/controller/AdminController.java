@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,7 @@ public class AdminController {
                 .email(request.getEmail())
                 .password(encodedPassword)
                 .name(request.getName())
+                .role("ROLE_ADMIN")
                 .build();
 
         adminRepository.save(admin);
@@ -65,12 +67,14 @@ public class AdminController {
             Admin admin = adminDetails.getAdmin();
 
             // 세션에 로그인된 관리자 정보 저장
-            session.setAttribute("LOGIN_ADMIN", admin.getAdminId());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
             LoginResponseDto response = new LoginResponseDto(
                     admin.getAdminId(),
                     admin.getEmail(),
-                    admin.getName()
+                    admin.getName(),
+                    admin.getRole()
             );
 
             return ResponseEntity.ok(ApiResponse.success("로그인 성공", response));

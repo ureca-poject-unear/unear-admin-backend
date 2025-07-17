@@ -3,6 +3,7 @@ package com.unear.admin.common.security;
 import com.unear.admin.auth.entity.Admin;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ public class CustomAdminDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // 권한이 필요 없으면 비워도 무방
+        return Collections.singletonList(new SimpleGrantedAuthority(admin.getRole()));
     }
 
     @Override

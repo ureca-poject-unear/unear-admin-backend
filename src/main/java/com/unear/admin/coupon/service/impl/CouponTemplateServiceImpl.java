@@ -28,7 +28,7 @@ public class CouponTemplateServiceImpl implements CouponTemplateService {
                 .event(event)
                 .couponName(dto.getCouponName())
                 .description(dto.getDescription())
-                .discountPolicy(dto.getDiscountPolicy())  // enum 문자열로 저장
+                .discountPolicy(dto.getDiscountPolicy().getLabel())
                 .remainingQuantity(dto.getRemainingQuantity())
                 .couponStart(dto.getCouponStart())
                 .couponEnd(dto.getCouponEnd())

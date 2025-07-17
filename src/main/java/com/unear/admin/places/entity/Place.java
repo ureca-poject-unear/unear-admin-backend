@@ -32,16 +32,12 @@ public class Place {
     @Column(precision = 10, scale = 7)
     private BigDecimal longitude;
 
-    private String markerCode;
-    private String categoryCode;
-    private String benefitCategoryCode;
 
     private Integer startTime;
     private Integer endTime;
 
     private String tel;
 
-    private String placeType;
 
     public void setEvent(Event event) {
         this.event = event;

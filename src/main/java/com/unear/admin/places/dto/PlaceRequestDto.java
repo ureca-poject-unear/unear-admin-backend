@@ -43,10 +43,6 @@ public class PlaceRequestDto {
                 .longitude(longitude)
                 .startTime(parseTime(startTime))
                 .endTime(parseTime(endTime))
-                .markerCode(markerCode.getCode())
-                .categoryCode(categoryCode.getCode())
-                .benefitCategoryCode(benefitCategory.getLabel())
-                .event(event)
                 .build();
     }
 

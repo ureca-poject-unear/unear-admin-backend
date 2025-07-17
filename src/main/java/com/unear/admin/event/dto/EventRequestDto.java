@@ -1,11 +1,11 @@
 package com.unear.admin.event.dto;
 
 import com.unear.admin.event.entity.Event;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
