@@ -27,6 +27,6 @@ public enum PlaceType {
                 return value;
             }
         }
-        throw new IllegalArgumentException("Invalid MarkerCode: " + code);
+        throw new IllegalArgumentException("Invalid PlaceType code: " + code);
     }
 }
