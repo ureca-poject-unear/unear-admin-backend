@@ -9,5 +9,5 @@ public class LoginResponseDto {
     private Long adminId;
     private String email;
     private String name;
-    private String Role;
+    private String role;
 }
