@@ -1,10 +1,15 @@
 package com.unear.admin.common.enums;
 
 public enum PlaceCategory {
-    FOOD("FOOD", "음식"),
-    LIFE("LIFE", "생활"),
-    BEAUTY("BEAUTY", "뷰티"),
-    HEALTH("HEALTH", "건강");
+    FOOD("FOOD", "푸드"),
+    LIFE("LIFE", "생활/편의"),
+    BEAUTY("BEAUTY", "뷰티/건강"),
+    ACTIVITY("ACTIVITY", "액티비티"),
+    EDUCATION("EDUCATION","교육"),
+    CULTURE("CULTURE", "문화/여가"),
+    BAKERY("BAKERY", "베이커리"),
+    SHOPPING("SHOPPING", "쇼핑"),
+    CAFE("CAFE", "카페");
 
     private final String code;
     private final String description;

@@ -5,6 +5,7 @@ import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import com.unear.admin.places.dto.responsedto.PlaceResponseDto;
 import com.unear.admin.places.service.PlaceService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

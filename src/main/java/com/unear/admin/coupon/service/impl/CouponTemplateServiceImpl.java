@@ -1,7 +1,6 @@
 package com.unear.admin.coupon.service.impl;
 
 import com.unear.admin.coupon.dto.CouponTemplateRequestDto;
-import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
 import com.unear.admin.coupon.service.CouponTemplateService;
 import com.unear.admin.event.entity.Event;
@@ -24,17 +23,7 @@ public class CouponTemplateServiceImpl implements CouponTemplateService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        CouponTemplate coupon = CouponTemplate.builder()
-                .event(event)
-                .couponName(dto.getCouponName())
-                .description(dto.getDescription())
-                .discountPolicy(dto.getDiscountPolicy().getLabel())
-                .remainingQuantity(dto.getRemainingQuantity())
-                .couponStart(dto.getCouponStart())
-                .couponEnd(dto.getCouponEnd())
-                .build();
-
-        couponTemplateRepository.save(coupon);
+        couponTemplateRepository.save(dto.toEntity(event));
     }
 
 

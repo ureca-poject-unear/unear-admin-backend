@@ -16,22 +16,28 @@ public class CouponTemplateRequestDto {
 
     private String couponName;
     private String description;
+
     @Builder.Default
     private DiscountPolicy discountPolicy = DiscountPolicy.COUPON_FCFS;
+
     private Integer remainingQuantity;
 
     private LocalDate couponStart;
     private LocalDate couponEnd;
 
+    private String markerCode;
+    private String membershipCode;
+
     public CouponTemplate toEntity(Event event) {
         return CouponTemplate.builder()
                 .couponName(couponName)
                 .description(description)
-                .discountCode(discountPolicy.name())
-                .discountPolicy(discountPolicy.getLabel())
+                .discountPolicy(discountPolicy)
                 .remainingQuantity(remainingQuantity)
                 .couponStart(couponStart)
                 .couponEnd(couponEnd)
+                .markerCode(markerCode)
+                .membershipCode(membershipCode)
                 .event(event)
                 .build();
     }
