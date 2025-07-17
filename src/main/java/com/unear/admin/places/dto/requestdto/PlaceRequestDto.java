@@ -1,4 +1,4 @@
-package com.unear.admin.places.dto;
+package com.unear.admin.places.dto.requestdto;
 
 import com.unear.admin.common.enums.PlaceCategory;
 import com.unear.admin.common.enums.PlaceType;

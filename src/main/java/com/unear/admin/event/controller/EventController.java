@@ -3,7 +3,7 @@ package com.unear.admin.event.controller;
 import com.unear.admin.coupon.dto.CouponTemplateRequestDto;
 import com.unear.admin.event.dto.EventRequestDto;
 import com.unear.admin.event.service.EventService;
-import com.unear.admin.places.dto.PlaceRequestDto;
+import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
