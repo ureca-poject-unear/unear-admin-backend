@@ -1,7 +1,7 @@
 package com.unear.admin.common.enums;
 
 public enum PlaceType {
-    GENERAL("BASIC", "기본혜택"),
+    BASIC("BASIC", "기본혜택"),
     FRANCHISE("FRANCHISE", "프랜차이즈"),
     POPUP("POPUP","팝업스토어"),
     LOCAL("LOCAL", "우리동네멤버십");
