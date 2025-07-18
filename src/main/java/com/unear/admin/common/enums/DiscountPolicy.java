@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Arrays;
 
 public enum DiscountPolicy {
-    DISCOUNT("할인"),
-    POINT("적립"),
-    GIFT("증정"),
+    COUPON_FIXED("(쿠폰) 금액 할인"),
+    COUPON_PERCENT("(쿠폰) 퍼센트 할인"),
+    MEMBERSHIP_UNIT("(멤버십) 금액당 할인"),
+    MEMBERSHIP_FIXED("(멤버십) 금액 할인"),
     COUPON_FCFS("선착순 전용 쿠폰");
 
     private final String label;
