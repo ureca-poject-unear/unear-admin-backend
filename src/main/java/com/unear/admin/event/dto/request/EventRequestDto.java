@@ -1,4 +1,4 @@
-package com.unear.admin.event.dto;
+package com.unear.admin.event.dto.request;
 
 import com.unear.admin.event.entity.Event;
 import jakarta.validation.constraints.*;

@@ -1,7 +1,7 @@
 package com.unear.admin.event.controller;
 
-import com.unear.admin.coupon.dto.CouponTemplateRequestDto;
-import com.unear.admin.event.dto.EventRequestDto;
+import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
+import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.event.service.EventService;
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import lombok.RequiredArgsConstructor;
