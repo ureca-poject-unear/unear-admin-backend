@@ -25,6 +25,11 @@ public record EventDetailResponseDto(
         List<CouponTemplateResponseDto> coupons
 ) {
     public static EventDetailResponseDto from(Event event, List<Place> partners, List<CouponTemplate> templates) {
+        Place popupStore = event.getPlaces().stream()
+            .filter(p -> p.getEvent() != null)
+            .findFirst()
+            .orElse(null);
+            
         return EventDetailResponseDto.builder()
                 .eventId(event.getUnearEventsId())
                 .eventName(event.getEventName())
