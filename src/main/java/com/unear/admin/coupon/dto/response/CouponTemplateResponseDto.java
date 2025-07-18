@@ -10,7 +10,6 @@ import java.time.LocalDate;
 public record CouponTemplateResponseDto(
         Long couponId,
         String couponName,
-        String description,
         DiscountPolicy discountPolicy,
         String discountPolicyLabel,
         Integer remainingQuantity,
