@@ -25,7 +25,10 @@ public class Place {
     private String address;
     private String tel;
 
+    @Column(precision = 10, scale = 7)
     private BigDecimal latitude;
+
+    @Column(precision = 10, scale = 7)
     private BigDecimal longitude;
 
     @Column(name = "benefit_category")
