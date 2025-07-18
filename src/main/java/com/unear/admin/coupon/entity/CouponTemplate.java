@@ -25,9 +25,6 @@ public class CouponTemplate {
 
     private String couponName;
 
-    @Column(length = 255)
-    private String description;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "discount_code")
     private DiscountPolicy discountPolicy;
