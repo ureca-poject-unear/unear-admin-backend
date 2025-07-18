@@ -28,14 +28,13 @@ public class PlaceServiceImpl implements PlaceService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        Place place = dto.toEntity(event); // 변환 책임은 DTO 내부
+        Place place = dto.toEntity(event);
 
         placeRepository.save(place);
     }
 
     @Override
     public List<PlaceResponseDto> getPartnersWithinEvent(Long eventId) {
-        // 이벤트 존재 여부 검증
         eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
         

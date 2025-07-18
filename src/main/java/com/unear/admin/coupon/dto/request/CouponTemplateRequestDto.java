@@ -1,4 +1,4 @@
-package com.unear.admin.coupon.dto;
+package com.unear.admin.coupon.dto.request;
 
 
 import com.unear.admin.coupon.entity.CouponTemplate;

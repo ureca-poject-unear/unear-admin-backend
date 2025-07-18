@@ -1,6 +1,6 @@
 package com.unear.admin.coupon.service.impl;
 
-import com.unear.admin.coupon.dto.CouponTemplateRequestDto;
+import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
 import com.unear.admin.coupon.service.CouponTemplateService;
 import com.unear.admin.event.entity.Event;
@@ -25,6 +25,5 @@ public class CouponTemplateServiceImpl implements CouponTemplateService {
 
         couponTemplateRepository.save(dto.toEntity(event));
     }
-
 
 }

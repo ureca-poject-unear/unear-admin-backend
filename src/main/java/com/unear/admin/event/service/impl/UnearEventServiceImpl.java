@@ -1,9 +1,9 @@
 package com.unear.admin.event.service.impl;
 
-import com.unear.admin.coupon.dto.CouponTemplateRequestDto;
+import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
-import com.unear.admin.event.dto.EventRequestDto;
+import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
 import com.unear.admin.event.service.EventService;

@@ -1,7 +1,7 @@
 package com.unear.admin.event.entity;
 
 import com.unear.admin.coupon.entity.CouponTemplate;
-import com.unear.admin.event.dto.EventRequestDto;
+import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.places.entity.Place;
 import jakarta.persistence.*;
 import lombok.*;
