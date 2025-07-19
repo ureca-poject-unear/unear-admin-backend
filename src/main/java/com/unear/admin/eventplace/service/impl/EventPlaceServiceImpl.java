@@ -32,11 +32,9 @@ public class EventPlaceServiceImpl implements EventPlaceService {
 
     @Override
     public void addEventPlace(List<EventPlaceRequestDto> requestList) {
-        if (requestList.size() > 3) {
         if (requestList.size() > MAX_EVENT_PLACES) {
              throw new BusinessException(ErrorCode.INVALID_REQUEST);
          }
-    }
 
         List<EventPlace> eventPlaces = requestList.stream()
                 .map(dto -> {
