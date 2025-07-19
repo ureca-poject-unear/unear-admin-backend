@@ -7,6 +7,8 @@ import com.unear.admin.places.service.PlaceService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +31,8 @@ public class PlaceController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<PlaceResponseDto>>> getAllPlaces() {
-        List<PlaceResponseDto> result = placeService.getAllPlaces();
+    public ResponseEntity<ApiResponse<Page<PlaceResponseDto>>> getAllPlaces(Pageable pageable) {
+        Page<PlaceResponseDto> result = placeService.getAllPlaces(pageable);
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
