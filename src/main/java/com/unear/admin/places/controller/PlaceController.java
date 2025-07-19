@@ -7,6 +7,8 @@ import com.unear.admin.places.service.PlaceService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +21,39 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
-    @PostMapping("/{eventId}/places")
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<String>> createPartnerPlace(
+            @RequestBody @Valid PlaceRequestDto request
+    ) {
+        placeService.createPlace(request);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 등록 성공"));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<Page<PlaceResponseDto>>> getAllPlaces(Pageable pageable) {
+        Page<PlaceResponseDto> result = placeService.getAllPlaces(pageable);
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
+    @PostMapping("/{placeId}")
+    public ResponseEntity<ApiResponse<String>> updatePlace(
+            @PathVariable Long placeId,
+            @RequestBody @Valid PlaceRequestDto request
+    ) {
+        request.setPlaceId(placeId);
+        placeService.updatePlace(request);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 수정 성공"));
+    }
+
+
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<String>> deletePlace(@RequestParam Long placeId) {
+        placeService.deletePlace(placeId);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 삭제 성공"));
+    }
+
+    @PostMapping("/{eventId}/popup")
     public ResponseEntity<ApiResponse<String>> registerPopupPlace(
             @PathVariable Long eventId,
             @RequestBody @Valid PlaceRequestDto request

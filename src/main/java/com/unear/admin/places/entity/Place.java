@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -55,4 +56,25 @@ public class Place {
     public void setEvent(Event event) {
         this.event = event;
     }
+    
+    public void updatePlaceInfo(String placeName, String placeDesc, String address,
+                                String tel, BigDecimal latitude, BigDecimal longitude,
+                                String benefitCategory, Integer startTime, Integer endTime,
+                                PlaceCategory categoryCode, PlaceType markerCode,
+                                String eventCode, Long franchiseId) {
+        this.placeName = placeName;
+        this.placeDesc = placeDesc;
+        this.address = address;
+        this.tel = tel;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.benefitCategory = benefitCategory;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.categoryCode = categoryCode;
+        this.markerCode = markerCode;
+        this.eventCode = eventCode;
+        this.franchiseId = franchiseId;
+    }
+
 }

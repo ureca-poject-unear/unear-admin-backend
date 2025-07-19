@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 @Builder
 public class PlaceRequestDto {
 
+    private Long placeId;
+
     private String placeName;
     private String placeDesc;
     private String address;
@@ -52,11 +54,20 @@ public class PlaceRequestDto {
                 .build();
     }
 
-    private int parseTime(String timeString) {
-        try {
-            return Integer.parseInt(timeString);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("유효하지 않은 시간 값입니다: " + timeString);
-        }
+
+    public void updateEntity(Place place) {
+        place.setPlaceName(this.placeName);
+        place.setPlaceDesc(this.placeDesc);
+        place.setAddress(this.address);
+        place.setTel(this.tel);
+        place.setLatitude(this.latitude);
+        place.setLongitude(this.longitude);
+        place.setBenefitCategory(this.benefitCategory);
+        place.setStartTime(this.startTime);
+        place.setEndTime(this.endTime);
+        place.setCategoryCode(this.categoryCode);
+        place.setMarkerCode(this.markerCode);
+        place.setEventCode(this.eventCode);
+        place.setFranchiseId(this.franchiseId);
     }
 }
