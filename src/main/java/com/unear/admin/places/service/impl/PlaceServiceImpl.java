@@ -10,6 +10,8 @@ import com.unear.admin.places.entity.Place;
 import com.unear.admin.places.repository.PlaceRepository;
 import com.unear.admin.places.service.PlaceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,10 +32,9 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public List<PlaceResponseDto> getAllPlaces() {
-        return placeRepository.findAll().stream()
-                .map(PlaceResponseDto::from)
-                .toList();
+    public Page<PlaceResponseDto> getAllPlaces(Pageable pageable) {
+        return placeRepository.findAll(pageable)
+                .map(PlaceResponseDto::from);
     }
 
     @Override
@@ -45,16 +46,32 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public void updatePlace(PlaceRequestDto requestDto) {
-        if (requestDto.getPlaceId() == null) {
+    public void updatePlace(PlaceRequestDto dto) {
+        Long placeId = dto.getPlaceId();
+        if (placeId == null) {
             throw new BusinessException(ErrorCode.PLACE_ID_REQUIRED_FOR_UPDATE);
         }
 
-        Place place = placeRepository.findById(requestDto.getPlaceId())
+        Place place = placeRepository.findById(placeId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PLACE_NOT_FOUND));
 
-        requestDto.updateEntity(place);
+        place.updatePlaceInfo(
+                dto.getPlaceName(),
+                dto.getPlaceDesc(),
+                dto.getAddress(),
+                dto.getTel(),
+                dto.getLatitude(),
+                dto.getLongitude(),
+                dto.getBenefitCategory(),
+                dto.getStartTime(),
+                dto.getEndTime(),
+                dto.getCategoryCode(),
+                dto.getMarkerCode(),
+                dto.getEventCode(),
+                dto.getFranchiseId()
+        );
     }
+
 
     @Override
     public void savePlace(Long eventId, PlaceRequestDto dto) {
