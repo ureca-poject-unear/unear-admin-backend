@@ -8,4 +8,9 @@ import java.util.List;
 public interface PlaceService {
     void savePlace(Long eventId, PlaceRequestDto requestDto);
     List<PlaceResponseDto> getPartnersWithinEvent(Long eventId);
+    void createPlace(PlaceRequestDto requestDto);   //crud
+    List<PlaceResponseDto> getAllPlaces();
+    void deletePlace(Long PlaceId);
+    void updatePlace(PlaceRequestDto requestDto);
+
 }

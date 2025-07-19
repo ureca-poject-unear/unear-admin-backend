@@ -19,7 +19,35 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
-    @PostMapping("/{eventId}/places")
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<String>> createPartnerPlace(
+            @RequestBody @Valid PlaceRequestDto request
+    ) {
+        placeService.createPlace(request);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 등록 성공"));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<PlaceResponseDto>>> getAllPlaces() {
+        List<PlaceResponseDto> result = placeService.getAllPlaces();
+        return ResponseEntity.ok(ApiResponse.success(result));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<ApiResponse<String>> updatePlace(@RequestBody @Valid PlaceRequestDto request) {
+        placeService.updatePlace(request);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 수정 성공"));
+    }
+
+
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<String>> deletePlace(@RequestParam Long placeId) {
+        placeService.deletePlace(placeId);
+        return ResponseEntity.ok(ApiResponse.success("제휴처 삭제 성공"));
+    }
+
+    @PostMapping("/{eventId}/popup")
     public ResponseEntity<ApiResponse<String>> registerPopupPlace(
             @PathVariable Long eventId,
             @RequestBody @Valid PlaceRequestDto request

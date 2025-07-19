@@ -23,6 +23,39 @@ public class PlaceServiceImpl implements PlaceService {
     private final PlaceRepository placeRepository;
     private final EventRepository eventRepository;
 
+    @Override   // crud
+    public void createPlace(PlaceRequestDto requestDto) {
+        Place place = requestDto.toEntity(null); // 이벤트 없이 제휴처만 등록
+        placeRepository.save(place);
+    }
+
+    @Override
+    public List<PlaceResponseDto> getAllPlaces() {
+        return placeRepository.findAll().stream()
+                .map(PlaceResponseDto::from)
+                .toList();
+    }
+
+    @Override
+    public void deletePlace(Long placeId) {
+        if (!placeRepository.existsById(placeId)) {
+            throw new BusinessException(ErrorCode.PLACE_NOT_FOUND);
+        }
+        placeRepository.deleteById(placeId);
+    }
+
+    @Override
+    public void updatePlace(PlaceRequestDto requestDto) {
+        if (requestDto.getPlaceId() == null) {
+            throw new BusinessException(ErrorCode.PLACE_ID_REQUIRED_FOR_UPDATE);
+        }
+
+        Place place = placeRepository.findById(requestDto.getPlaceId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.PLACE_NOT_FOUND));
+
+        requestDto.updateEntity(place);
+    }
+
     @Override
     public void savePlace(Long eventId, PlaceRequestDto dto) {
         Event event = eventRepository.findById(eventId)
