@@ -36,8 +36,12 @@ public class PlaceController {
         return ResponseEntity.ok(ApiResponse.success(result));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<ApiResponse<String>> updatePlace(@RequestBody @Valid PlaceRequestDto request) {
+    @PostMapping("/{placeId}")
+    public ResponseEntity<ApiResponse<String>> updatePlace(
+            @PathVariable Long placeId,
+            @RequestBody @Valid PlaceRequestDto request
+    ) {
+        request.setPlaceId(placeId);
         placeService.updatePlace(request);
         return ResponseEntity.ok(ApiResponse.success("제휴처 수정 성공"));
     }
