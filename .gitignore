@@ -38,7 +38,5 @@ out/
 
 
 ### yml ###
-application.yml
-application-docker.yml
 application-local.yml
 application-secret.yml
