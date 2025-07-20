@@ -1,0 +1,14 @@
+package com.unear.admin.event.service;
+
+import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
+import com.unear.admin.event.dto.request.EventRequestDto;
+import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
+
+public interface EventService {
+
+    Long createBaseEvent(EventRequestDto dto);
+
+    void addPlaceToEvent(Long eventId, PlaceRequestDto dto);
+
+    void addCouponToEvent(Long eventId, CouponTemplateRequestDto dto);
+}

@@ -1,0 +1,22 @@
+package com.unear.admin.places.repository;
+
+import com.unear.admin.places.entity.Place;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface PlaceRepository extends JpaRepository<Place, Long> {
+    @Query(value = """
+    SELECT p.* FROM places p
+    JOIN unear_events e ON e.unear_event_id = :eventId
+    WHERE ST_DistanceSphere(
+        ST_MakePoint(p.longitude, p.latitude),
+        ST_MakePoint(e.longitude, e.latitude)
+    ) <= e.radius_meter
+    AND (p.unear_event_id IS NULL OR p.unear_event_id != :eventId)
+    """, nativeQuery = true)
+    List<Place> findPartnersWithinEventRadius(@Param("eventId") Long eventId);
+
+}

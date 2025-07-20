@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    open-in-view: false
+
+  config:
+    import:
+      - optional:application-local.yml
+      - optional:application-secret.yml
+      - optional:application-docker.yml
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
