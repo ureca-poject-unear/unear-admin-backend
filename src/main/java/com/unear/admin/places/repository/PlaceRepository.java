@@ -15,8 +15,10 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
         ST_MakePoint(p.longitude, p.latitude),
         ST_MakePoint(e.longitude, e.latitude)
     ) <= e.radius_meter
-    AND (p.unear_event_id IS NULL OR p.unear_event_id != :eventId)
-    """, nativeQuery = true)
+    AND p.place_id NOT IN (
+        SELECT ep.place_id FROM event_places ep WHERE ep.unear_event_id = :eventId
+    )
+""", nativeQuery = true)
     List<Place> findPartnersWithinEventRadius(@Param("eventId") Long eventId);
 
 }

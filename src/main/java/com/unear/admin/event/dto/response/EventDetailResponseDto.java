@@ -24,12 +24,7 @@ public record EventDetailResponseDto(
         List<PlaceResponseDto> partnerStores,
         List<CouponTemplateResponseDto> coupons
 ) {
-    public static EventDetailResponseDto from(Event event, List<Place> partners, List<CouponTemplate> templates) {
-        Place popupStore = event.getPlaces().stream()
-            .filter(p -> p.getEvent() != null)
-            .findFirst()
-            .orElse(null);
-            
+    public static EventDetailResponseDto from(Event event, Place popupStore, List<Place> partners, List<CouponTemplate> templates) {
         return EventDetailResponseDto.builder()
                 .eventId(event.getUnearEventsId())
                 .eventName(event.getEventName())
@@ -39,9 +34,10 @@ public record EventDetailResponseDto(
                 .radius(event.getRadiusMeter())
                 .startDate(event.getStartAt())
                 .endDate(event.getEndAt())
-                .popupStore(event.getPlaces().isEmpty() ? null : PlaceResponseDto.from(event.getPlaces().get(0)))
+                .popupStore(popupStore != null ? PlaceResponseDto.from(popupStore) : null)
                 .partnerStores(partners.stream().map(PlaceResponseDto::from).toList())
                 .coupons(templates.stream().map(CouponTemplateResponseDto::from).toList())
                 .build();
     }
+
 }

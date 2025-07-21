@@ -4,6 +4,8 @@ import com.unear.admin.common.enums.PlaceCategory;
 import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.places.entity.Place;
+import com.unear.admin.common.enums.EventType;
+
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -32,10 +34,10 @@ public class PlaceRequestDto {
     private PlaceCategory categoryCode;
     private PlaceType markerCode;
 
-    private String eventCode;
+    private EventType eventCode = EventType.NONE;
     private Long franchiseId;
 
-    public Place toEntity(Event event) {
+    public Place toEntity() {
         return Place.builder()
                 .placeName(placeName)
                 .placeDesc(placeDesc)
@@ -50,7 +52,6 @@ public class PlaceRequestDto {
                 .markerCode(markerCode)
                 .eventCode(eventCode)
                 .franchiseId(franchiseId)
-                .event(event)
                 .build();
     }
 
