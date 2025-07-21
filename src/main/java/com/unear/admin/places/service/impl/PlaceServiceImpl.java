@@ -1,7 +1,10 @@
 package com.unear.admin.places.service.impl;
 
+import com.unear.admin.common.enums.EventType;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
+import com.unear.admin.eventplace.entity.EventPlace;
+import com.unear.admin.eventplace.repository.EventPlaceRepository;
 import com.unear.admin.exception.BusinessException;
 import com.unear.admin.exception.ErrorCode;
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
@@ -24,10 +27,11 @@ public class PlaceServiceImpl implements PlaceService {
 
     private final PlaceRepository placeRepository;
     private final EventRepository eventRepository;
+    private final EventPlaceRepository eventPlaceRepository;
 
-    @Override   // crud
+    @Override
     public void createPlace(PlaceRequestDto requestDto) {
-        Place place = requestDto.toEntity(null); // 이벤트 없이 제휴처만 등록
+        Place place = requestDto.toEntity(); // 일반 제휴처 등록 (eventCode = NONE)
         placeRepository.save(place);
     }
 
@@ -55,39 +59,39 @@ public class PlaceServiceImpl implements PlaceService {
         Place place = placeRepository.findById(placeId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PLACE_NOT_FOUND));
 
-        place.updatePlaceInfo(
-                dto.getPlaceName(),
-                dto.getPlaceDesc(),
-                dto.getAddress(),
-                dto.getTel(),
-                dto.getLatitude(),
-                dto.getLongitude(),
-                dto.getBenefitCategory(),
-                dto.getStartTime(),
-                dto.getEndTime(),
-                dto.getCategoryCode(),
-                dto.getMarkerCode(),
-                dto.getEventCode(),
-                dto.getFranchiseId()
-        );
+        dto.updateEntity(place);
     }
-
 
     @Override
     public void savePlace(Long eventId, PlaceRequestDto dto) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        Place place = dto.toEntity(event);
+        // 팝업스토어의 경우 프랜차이즈 ID 제거
+        if (dto.getEventCode() == EventType.REQUIRE) {
+            dto.setFranchiseId(null);
+        }
 
+        Place place = dto.toEntity();
         placeRepository.save(place);
+
+        // 이벤트 연관 매장이라면 event_places 등록
+        if (place.getEventCode() != EventType.NONE) {
+            EventPlace mapping = EventPlace.builder()
+                    .event(event)
+                    .place(place)
+                    .eventCode(place.getEventCode())
+                    .build();
+            eventPlaceRepository.save(mapping);
+        }
     }
 
     @Override
     public List<PlaceResponseDto> getPartnersWithinEvent(Long eventId) {
-        eventRepository.findById(eventId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
-        
+        if (!eventRepository.existsById(eventId)) {
+            throw new BusinessException(ErrorCode.EVENT_NOT_FOUND);
+        }
+
         List<Place> result = placeRepository.findPartnersWithinEventRadius(eventId);
         return result.stream()
                 .map(PlaceResponseDto::from)

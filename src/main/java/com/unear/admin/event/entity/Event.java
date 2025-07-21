@@ -2,14 +2,11 @@ package com.unear.admin.event.entity;
 
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.event.dto.request.EventRequestDto;
-import com.unear.admin.places.entity.Place;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -39,15 +36,6 @@ public class Event {
 
     @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
     private CouponTemplate couponTemplate;
-
-    @Builder.Default
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Place> places = new ArrayList<>();
-
-    public void addPlace(Place place) {
-        this.places.add(place);
-        place.setEvent(this);
-    }
 
     public void setCouponTemplate(CouponTemplate couponTemplate) {
         this.couponTemplate = couponTemplate;

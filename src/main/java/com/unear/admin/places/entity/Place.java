@@ -1,8 +1,9 @@
 package com.unear.admin.places.entity;
 
+import com.unear.admin.common.enums.EventType;
 import com.unear.admin.common.enums.PlaceCategory;
 import com.unear.admin.common.enums.PlaceType;
-import com.unear.admin.event.entity.Event;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,22 +47,17 @@ public class Place {
     @Column(name = "marker_code")
     private PlaceType markerCode;
 
-    private String eventCode;
     private Long franchiseId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unear_event_id")
-    private Event event;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "event_type_code", nullable = false)
+    private EventType eventCode = EventType.NONE;
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-    
     public void updatePlaceInfo(String placeName, String placeDesc, String address,
                                 String tel, BigDecimal latitude, BigDecimal longitude,
                                 String benefitCategory, Integer startTime, Integer endTime,
                                 PlaceCategory categoryCode, PlaceType markerCode,
-                                String eventCode, Long franchiseId) {
+                                EventType eventCode, Long franchiseId) {
         this.placeName = placeName;
         this.placeDesc = placeDesc;
         this.address = address;
@@ -76,5 +72,4 @@ public class Place {
         this.eventCode = eventCode;
         this.franchiseId = franchiseId;
     }
-
 }
