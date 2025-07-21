@@ -67,9 +67,10 @@ public class PlaceServiceImpl implements PlaceService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        // 팝업스토어의 경우 프랜차이즈 ID 제거
+        // 팝업스토어는 독립적인 매장으로 프랜차이즈에 속하지 않음
+        Place place = dto.toEntity();
         if (dto.getEventCode() == EventType.REQUIRE) {
-            dto.setFranchiseId(null);
+            place.setFranchiseId(null);
         }
 
         Place place = dto.toEntity();
