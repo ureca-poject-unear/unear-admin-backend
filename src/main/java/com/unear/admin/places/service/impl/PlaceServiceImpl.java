@@ -73,9 +73,6 @@ public class PlaceServiceImpl implements PlaceService {
             place.setFranchiseId(null);
         }
 
-        Place place = dto.toEntity();
-        placeRepository.save(place);
-
         // 이벤트 연관 매장이라면 event_places 등록
         if (place.getEventCode() != EventType.NONE) {
             EventPlace mapping = EventPlace.builder()
