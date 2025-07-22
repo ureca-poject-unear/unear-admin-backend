@@ -1,6 +1,9 @@
 package com.unear.admin.coupon.dto.request;
 
 
+import com.unear.admin.common.enums.DiscountPolicy;
+import com.unear.admin.common.enums.MembershipGrade;
+import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.event.entity.Event;
 import lombok.*;
@@ -21,8 +24,9 @@ public class CouponTemplateRequestDto {
     private LocalDate couponStart;
     private LocalDate couponEnd;
 
-    private String markerCode;
-    private String membershipCode;
+    private DiscountPolicy discountCode;
+    private PlaceType markerCode;
+    private MembershipGrade membershipCode;
 
     public CouponTemplate toEntity(Event event) {
         return CouponTemplate.builder()
@@ -30,6 +34,7 @@ public class CouponTemplateRequestDto {
                 .remainingQuantity(remainingQuantity)
                 .couponStart(couponStart)
                 .couponEnd(couponEnd)
+                .discountCode(discountCode)
                 .markerCode(markerCode)
                 .membershipCode(membershipCode)
                 .event(event)
