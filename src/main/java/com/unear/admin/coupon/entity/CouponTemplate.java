@@ -1,6 +1,8 @@
 package com.unear.admin.coupon.entity;
 
 import com.unear.admin.common.enums.DiscountPolicy;
+import com.unear.admin.common.enums.MembershipGrade;
+import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.event.entity.Event;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,19 +28,22 @@ public class CouponTemplate {
     private String couponName;
 
     @Enumerated(EnumType.STRING)
+
     @Column(name = "discount_code")
-    private DiscountPolicy discountPolicy;
+    private DiscountPolicy discountCode;
 
     private Integer remainingQuantity;
 
     private LocalDate couponStart;
     private LocalDate couponEnd;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "marker_code")
-    private String markerCode;
+    private PlaceType markerCode;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "membership_code")
-    private String membershipCode;
+    private MembershipGrade membershipCode;
 
     public void setEvent(Event event) {
         this.event = event;
