@@ -40,7 +40,7 @@ public class PlaceController {
     }
 
     @PlaceDocs.UpdatePlace
-    @PostMapping("/{placeId}")
+    @PutMapping("/{placeId}")
     public ResponseEntity<ApiResponse<String>> updatePlace(
             @PathVariable Long placeId,
             @RequestBody @Valid PlaceRequestDto request

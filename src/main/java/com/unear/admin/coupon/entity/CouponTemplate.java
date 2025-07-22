@@ -26,9 +26,9 @@ public class CouponTemplate {
     private Event event;
 
     private String couponName;
+    private Long discountPolicyDetailId;
 
     @Enumerated(EnumType.STRING)
-
     @Column(name = "discount_code")
     private DiscountPolicy discountCode;
 
@@ -47,5 +47,19 @@ public class CouponTemplate {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public void update(String couponName, DiscountPolicy discountCode, Integer remainingQuantity,
+                       LocalDate couponStart, LocalDate couponEnd,
+                       MembershipGrade membershipCode, PlaceType markerCode, Long discountPolicyDetailId) {
+
+        this.couponName = couponName;
+        this.discountCode = discountCode;
+        this.remainingQuantity = remainingQuantity;
+        this.couponStart = couponStart;
+        this.couponEnd = couponEnd;
+        this.membershipCode = membershipCode;
+        this.markerCode = markerCode;
+        this.discountPolicyDetailId = discountPolicyDetailId;
     }
 }
