@@ -1,8 +1,8 @@
-package com.unear.admin.exception.handler;
+package com.unear.admin.common.exception.handler;
 
 import com.unear.admin.common.response.ApiResponse;
-import com.unear.admin.exception.BusinessException;
-import com.unear.admin.exception.ErrorCode;
+import com.unear.admin.common.exception.BusinessException;
+import com.unear.admin.common.exception.ErrorCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

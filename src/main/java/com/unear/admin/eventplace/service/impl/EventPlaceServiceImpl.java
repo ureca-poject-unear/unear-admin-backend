@@ -1,6 +1,5 @@
 package com.unear.admin.eventplace.service.impl;
 
-import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
 
@@ -8,9 +7,8 @@ import com.unear.admin.eventplace.dto.request.EventPlaceRequestDto;
 import com.unear.admin.eventplace.entity.EventPlace;
 import com.unear.admin.eventplace.repository.EventPlaceRepository;
 import com.unear.admin.eventplace.service.EventPlaceService;
-import com.unear.admin.exception.BusinessException;
-import com.unear.admin.exception.ErrorCode;
-import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
+import com.unear.admin.common.exception.BusinessException;
+import com.unear.admin.common.exception.ErrorCode;
 import com.unear.admin.places.entity.Place;
 import com.unear.admin.places.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;

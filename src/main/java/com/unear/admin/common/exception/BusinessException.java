@@ -1,6 +1,5 @@
-package com.unear.admin.exception;
+package com.unear.admin.common.exception;
 
-import com.unear.admin.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter

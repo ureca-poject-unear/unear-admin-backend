@@ -1,4 +1,4 @@
-package com.unear.admin.exception;
+package com.unear.admin.common.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

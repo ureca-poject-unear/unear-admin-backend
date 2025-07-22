@@ -1,7 +1,6 @@
 package com.unear.admin.coupon.service.impl;
 
 import com.unear.admin.common.enums.DiscountPolicy;
-import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.coupon.dto.response.CouponTemplateResponseDto;
 import com.unear.admin.coupon.entity.CouponTemplate;
@@ -9,8 +8,8 @@ import com.unear.admin.coupon.repository.CouponTemplateRepository;
 import com.unear.admin.coupon.service.CouponTemplateService;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
-import com.unear.admin.exception.BusinessException;
-import com.unear.admin.exception.ErrorCode;
+import com.unear.admin.common.exception.BusinessException;
+import com.unear.admin.common.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
