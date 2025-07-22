@@ -1,6 +1,6 @@
 package com.unear.admin.common.response;
 
-import com.unear.admin.exception.ErrorCode;
+import com.unear.admin.common.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

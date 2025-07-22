@@ -6,8 +6,8 @@ import com.unear.admin.common.enums.MembershipGrade;
 import com.unear.admin.common.enums.PlaceType;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.event.entity.Event;
-import com.unear.admin.exception.BusinessException;
-import com.unear.admin.exception.ErrorCode;
+import com.unear.admin.common.exception.BusinessException;
+import com.unear.admin.common.exception.ErrorCode;
 import lombok.*;
 
 import java.time.LocalDate;
