@@ -90,7 +90,13 @@ public class EventServiceImpl implements EventService {
 
     }
     private boolean isSameLocation(Place a, Place b) {
-        return a.getLatitude().compareTo(b.getLatitude()) == 0 &&
-                a.getLongitude().compareTo(b.getLongitude()) == 0;
+        if (a.getLatitude() == null || a.getLongitude() == null ||
+            b.getLatitude() == null || b.getLongitude() == null) {
+            return false;
+        }
+
+        BigDecimal tolerance = new BigDecimal("0.000001"); // 약 0.1미터 정밀도
+        return a.getLatitude().subtract(b.getLatitude()).abs().compareTo(tolerance) <= 0 &&
+               a.getLongitude().subtract(b.getLongitude()).abs().compareTo(tolerance) <= 0;
     }
 }
