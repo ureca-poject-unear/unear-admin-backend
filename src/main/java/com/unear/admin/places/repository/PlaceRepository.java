@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
@@ -20,5 +21,18 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
     )
 """, nativeQuery = true)
     List<Place> findPartnersWithinEventRadius(@Param("eventId") Long eventId);
+
+    @Query(value = """
+    SELECT * FROM places p
+    WHERE ST_DistanceSphere(
+        ST_MakePoint(p.longitude, p.latitude),
+        ST_MakePoint(:lng, :lat)
+    ) <= :radius
+""", nativeQuery = true)
+    List<Place> findWithinRadius(
+            @Param("lat") BigDecimal lat,
+            @Param("lng") BigDecimal lng,
+            @Param("radius") Integer radius
+    );
 
 }
