@@ -32,7 +32,7 @@ public class EventController {
             @PathVariable Long eventId,
             @RequestBody EventPlaceRegistrationRequest request
     ) {
-        eventService.registerPopupAndPartners(eventId, request);
+        eventService.addPlaceToEvent(eventId, request);
         return ResponseEntity.ok(ApiResponse.success("팝업스토어 및 제휴처 등록 완료"));
     }
 

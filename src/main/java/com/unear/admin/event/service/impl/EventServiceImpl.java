@@ -1,6 +1,8 @@
 package com.unear.admin.event.service.impl;
 
 import com.unear.admin.common.enums.EventType;
+import com.unear.admin.common.exception.BusinessException;
+import com.unear.admin.common.exception.ErrorCode;
 import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
@@ -20,10 +22,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
+
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class UnearEventServiceImpl implements EventService {
+public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
     private final PlaceRepository placeRepository;
@@ -45,30 +50,35 @@ public class UnearEventServiceImpl implements EventService {
     }
 
     @Override
-    public void registerPopupAndPartners(Long eventId, EventPlaceRegistrationRequest request) {
+    public void addPlaceToEvent(Long eventId, EventPlaceRegistrationRequest dto) {
         Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new IllegalArgumentException("이벤트를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
 
-        // 1. 팝업스토어 저장 및 이벤트 등록
-        PlaceRequestDto popupDto = request.popupStore();
-        popupDto.setEventCode(EventType.REQUIRE);
-        Place popupPlace = popupDto.toEntity();
-        placeRepository.save(popupPlace);
+
+        PlaceRequestDto popupDto = dto.popupStore();
+        popupDto.setEventCode(EventType.REQUIRE);         // 팝업스토어는 REQUIRE
+        Place popupStore = popupDto.toEntity();           // 새 엔티티 생성
+        placeRepository.save(popupStore);                 // 저장
 
         EventPlace popupMapping = EventPlace.builder()
                 .event(event)
-                .place(popupPlace)
+                .place(popupStore)
                 .eventCode(EventType.REQUIRE)
                 .build();
         eventPlaceRepository.save(popupMapping);
 
-        // 2. 제휴처 저장 및 이벤트 등록
-        List<Long> partnerIds = request.partnerPlaceIds();
-        for (Long partnerId : partnerIds) {
-            Place partner = placeRepository.findById(partnerId)
-                    .orElseThrow(() -> new IllegalArgumentException("제휴처가 존재하지 않습니다. ID: " + partnerId));
+        List<Place> nearbyPlaces = placeRepository.findWithinRadius(
+                event.getLatitude(),
+                event.getLongitude(),
+                event.getRadiusMeter()
+        );
 
-            partner.setEventCode(EventType.GENERAL); // 💡 자동 분기
+        for (Place partner : nearbyPlaces) {
+
+            if (isSameLocation(partner, popupStore)) continue;
+
+            partner.setEventCode(EventType.GENERAL);
+            placeRepository.save(partner);
 
             EventPlace partnerMapping = EventPlace.builder()
                     .event(event)
@@ -77,6 +87,10 @@ public class UnearEventServiceImpl implements EventService {
                     .build();
             eventPlaceRepository.save(partnerMapping);
         }
-    }
 
+    }
+    private boolean isSameLocation(Place a, Place b) {
+        return a.getLatitude().compareTo(b.getLatitude()) == 0 &&
+                a.getLongitude().compareTo(b.getLongitude()) == 0;
+    }
 }
