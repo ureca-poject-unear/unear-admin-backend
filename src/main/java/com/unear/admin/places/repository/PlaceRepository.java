@@ -2,10 +2,12 @@ package com.unear.admin.places.repository;
 
 import com.unear.admin.places.entity.Place;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PlaceRepository extends JpaRepository<Place, Long> {
@@ -34,5 +36,34 @@ public interface PlaceRepository extends JpaRepository<Place, Long> {
             @Param("lng") BigDecimal lng,
             @Param("radius") Integer radius
     );
+
+    @Modifying
+    @Query(value = """
+    UPDATE places
+    SET is_deleted = true,
+        event_type_code = 'NONE'
+    WHERE place_id IN (
+        SELECT ep.place_id
+        FROM event_places ep
+        JOIN unear_events e ON ep.unear_event_id = e.unear_event_id
+        WHERE ep.event_code = 'REQUIRE'
+          AND e.end_at < :today
+    )
+""", nativeQuery = true)
+    void softDeleteExpiredPopupPlaces(@Param("today") LocalDate today);
+
+
+    @Modifying
+    @Query("""
+    UPDATE Place p
+    SET p.eventCode = 'NONE'
+    WHERE p.placeId IN (
+        SELECT ep.place.placeId
+        FROM EventPlace ep
+        WHERE ep.event.endAt < :today
+          AND ep.eventCode = 'GENERAL'
+    )
+""")
+    void updateGeneralPlacesToNone(@Param("today") LocalDate today);
 
 }

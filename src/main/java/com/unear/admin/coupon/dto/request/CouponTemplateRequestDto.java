@@ -43,7 +43,6 @@ public class CouponTemplateRequestDto {
                 .markerCode(markerCode)
                 .membershipCode(membershipCode)
                 .discountPolicyDetailId(discountPolicyId)
-                .event(event)
                 .build();
     }
 

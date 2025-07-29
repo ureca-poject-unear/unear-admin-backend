@@ -20,11 +20,10 @@ public record EventDetailResponseDto(
         int radius,
         LocalDate startDate,
         LocalDate endDate,
-        PlaceResponseDto popupStore,
         List<PlaceResponseDto> partnerStores,
         List<CouponTemplateResponseDto> coupons
 ) {
-    public static EventDetailResponseDto from(Event event, Place popupStore, List<Place> partners, List<CouponTemplate> templates) {
+    public static EventDetailResponseDto from(Event event) {
         return EventDetailResponseDto.builder()
                 .eventId(event.getUnearEventsId())
                 .eventName(event.getEventName())
@@ -34,9 +33,8 @@ public record EventDetailResponseDto(
                 .radius(event.getRadiusMeter())
                 .startDate(event.getStartAt())
                 .endDate(event.getEndAt())
-                .popupStore(popupStore != null ? PlaceResponseDto.from(popupStore) : null)
-                .partnerStores(partners.stream().map(PlaceResponseDto::from).toList())
-                .coupons(templates.stream().map(CouponTemplateResponseDto::from).toList())
+                .partnerStores(List.of()) // or null, 필요에 따라 조절
+                .coupons(List.of())       // or null, 필요에 따라 조절
                 .build();
     }
 

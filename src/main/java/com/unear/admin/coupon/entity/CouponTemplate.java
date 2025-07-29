@@ -21,10 +21,6 @@ public class CouponTemplate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long couponTemplateId;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "unear_event_id")
-    private Event event;
-
     private String couponName;
     private Long discountPolicyDetailId;
 
@@ -45,9 +41,8 @@ public class CouponTemplate {
     @Column(name = "membership_code")
     private MembershipGrade membershipCode;
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted = false;
 
     public void update(String couponName, DiscountPolicy discountCode, Integer remainingQuantity,
                        LocalDate couponStart, LocalDate couponEnd,
