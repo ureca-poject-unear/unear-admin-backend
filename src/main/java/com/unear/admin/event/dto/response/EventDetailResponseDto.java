@@ -33,8 +33,8 @@ public record EventDetailResponseDto(
                 .radius(event.getRadiusMeter())
                 .startDate(event.getStartAt())
                 .endDate(event.getEndAt())
-                .partnerStores(List.of()) // or null, 필요에 따라 조절
-                .coupons(List.of())       // or null, 필요에 따라 조절
+                .partnerStores(List.of()) 
+                .coupons(List.of())
                 .build();
     }
 
