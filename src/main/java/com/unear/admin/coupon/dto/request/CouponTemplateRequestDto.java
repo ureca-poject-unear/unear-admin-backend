@@ -43,6 +43,7 @@ public class CouponTemplateRequestDto {
                 .markerCode(markerCode)
                 .membershipCode(membershipCode)
                 .discountPolicyDetailId(discountPolicyId)
+                .isDeleted(false)
                 .build();
     }
 
