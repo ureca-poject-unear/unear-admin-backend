@@ -11,4 +11,8 @@ public enum EventType {
     REQUIRE("이벤트(필수)");
 
     private final String label;
+
+    public boolean isGeneral() {
+        return this == GENERAL;
+    }
 }

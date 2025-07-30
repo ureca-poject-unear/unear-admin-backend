@@ -2,6 +2,7 @@ package com.unear.admin.event.entity;
 
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.event.dto.request.EventRequestDto;
+import com.unear.admin.places.entity.Place;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
@@ -34,15 +36,18 @@ public class Event {
     private LocalDate startAt;
     private LocalDate endAt;
 
-    @OneToOne(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupon_template_id")
     private CouponTemplate couponTemplate;
 
-    public void setCouponTemplate(CouponTemplate couponTemplate) {
-        this.couponTemplate = couponTemplate;
-        if (couponTemplate != null) {
-            couponTemplate.setEvent(this);
-        }
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "popup_store_id")
+    private Place popupStore;
+
+    @Column(name = "isActive")
+    private Boolean isActive;
+
 
     public static Event fromDto(EventRequestDto dto) {
         return Event.builder()

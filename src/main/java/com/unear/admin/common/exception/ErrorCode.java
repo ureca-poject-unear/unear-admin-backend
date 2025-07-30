@@ -17,7 +17,11 @@ public enum ErrorCode {
     PLACE_NOT_FOUND(HttpStatus.NOT_FOUND, "PLACE_NOT_FOUND", "제휴처 정보를 찾을 수 없습니다."),
     PLACE_ID_REQUIRED_FOR_UPDATE(HttpStatus.BAD_REQUEST, "PLACE_ID_REQUIRED", "placeId는 필수입니다."),
     INVALID_COUPON_POLICY(HttpStatus.BAD_REQUEST, "INVALID_COUPON_POLICY", "유효하지 않은 쿠폰 정책입니다."),
-    COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "COUPON_NOT_FOUND", "쿠폰을 찾을 수 없습니다.");
+    COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "COUPON_NOT_FOUND", "쿠폰을 찾을 수 없습니다."),
+    NOT_FOUND_EVENT(HttpStatus.NOT_FOUND, "NOT_FOUND_EVENT", "이벤트를 찾을 수 없습니다."),
+    NOT_FOUND_PLACE(HttpStatus.NOT_FOUND, "NOT_FOUND_PLACE", "제휴처를 찾을 수 없습니다."),
+    OUT_OF_EVENT_RADIUS(HttpStatus.BAD_REQUEST,"OUT_OF_EVENT_RADIUS", "이벤트 범위를 벗어났습니다.")
+    ;
 
 
 
