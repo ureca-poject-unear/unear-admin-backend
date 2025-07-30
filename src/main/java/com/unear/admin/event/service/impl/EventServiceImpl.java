@@ -19,7 +19,7 @@ import com.unear.admin.places.entity.Place;
 import com.unear.admin.places.repository.PlaceRepository;
 import com.unear.admin.event.service.EventService;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class EventServiceImpl implements EventService {
     private final EventPlaceRepository eventPlaceRepository;
     private final CouponTemplateRepository couponTemplateRepository;
 
-    // ✅ 1단계 - 이벤트 기본 정보 등록
+    //이벤트 기본 정보 등록
     @Override
     public Long createBaseEvent(EventRequestDto dto) {
 
@@ -60,7 +60,7 @@ public class EventServiceImpl implements EventService {
         return eventRepository.save(event).getUnearEventsId();
     }
 
-    // ✅ 2단계-1: 팝업스토어 등록 (이벤트 반경 내인지 확인)
+    //팝업스토어 등록 (이벤트 반경 내인지 확인)
     @Override
     public void registerPopupStore(Long eventId, PlaceRequestDto popupDto) {
         Event event = eventRepository.findById(eventId)
@@ -87,12 +87,12 @@ public class EventServiceImpl implements EventService {
 
         eventPlaceRepository.save(popup);
 
-        // ✅ 2. popup_store_id 필드에 해당 팝업스토어 ID 저장
+        //필드에 해당 팝업스토어 ID 저장
         event.setPopupStore(popupStore);
         eventRepository.save(event);
     }
 
-    // ✅ 2단계-2: 반경 내 제휴처 조회
+    //반경 내 제휴처 조회
     @Override
     public List<PlaceResponseDto> findNearbyPartnerStores(Long eventId) {
         Event event = eventRepository.findById(eventId)
@@ -108,7 +108,7 @@ public class EventServiceImpl implements EventService {
                 .toList();
     }
 
-    // ✅ 2단계-3: 선택된 제휴처 저장
+    //선택된 제휴처 저장
     @Override
     public void registerPartnerStores(Long eventId, List<Long> partnerStoreIds) {
         Event event = eventRepository.findById(eventId)
@@ -133,7 +133,7 @@ public class EventServiceImpl implements EventService {
     }
 
 
-    // ✅ 3단계: 선착순 쿠폰 등록 및 이벤트 연동
+    //선착순 쿠폰 등록 및 이벤트 연동
     @Override
     public void addCouponToEvent(Long eventId, CouponTemplateRequestDto dto) {
         Event event = eventRepository.findById(eventId)
@@ -142,14 +142,5 @@ public class EventServiceImpl implements EventService {
         CouponTemplate coupon = couponTemplateRepository.save(dto.toEntity(event));
         event.setCouponTemplate(coupon);
     }
-
-//    // ✅ 현재 이벤트 조회
-//    @Override
-//    public Optional<Event> getCurrentEvent() {
-//        LocalDate today = LocalDate.now();
-//        return eventRepository.activateTodayEvent(today, today);
-//    }
-
-
 
 }
