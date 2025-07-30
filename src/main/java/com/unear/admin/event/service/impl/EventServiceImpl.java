@@ -98,12 +98,13 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_EVENT));
 
-        return placeRepository.findAll().stream()
+        List<Place> candidates = placeRepository.findWithinRadius(
+                event.getLatitude(),
+                event.getLongitude(),
+                event.getRadiusMeter()
+        );
+        return candidates.stream()
                 .filter(p -> p.getEventCode() == EventType.NONE)
-                .filter(p -> LocationUtils.calculateDistance(
-                        event.getLatitude().doubleValue(), event.getLongitude().doubleValue(),
-                        p.getLatitude().doubleValue(), p.getLongitude().doubleValue()
-                ) <= event.getRadiusMeter())
                 .map(PlaceResponseDto::from)
                 .toList();
     }
