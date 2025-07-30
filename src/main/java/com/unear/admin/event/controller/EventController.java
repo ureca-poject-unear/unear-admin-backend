@@ -25,7 +25,6 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
-    private final EventServiceImpl eventServiceImpl;
 
     @EventDocs.PostEvent
     @PostMapping    // 이벤트 지역 지정
@@ -34,7 +33,7 @@ public class EventController {
         return ResponseEntity.ok(eventId);
     }
 
-    // ✅ 2단계-1: 팝업스토어 등록
+    // 2-1: 팝업스토어 등록
     @PostMapping("/{eventId}/places/popup")
     public ResponseEntity<ApiResponse<String>> registerPopupStore(
             @PathVariable Long eventId,
@@ -44,7 +43,7 @@ public class EventController {
         return ResponseEntity.ok(ApiResponse.success("팝업스토어 등록 완료"));
     }
 
-    // ✅ 2단계-2: 반경 내 제휴처 조회
+    // 2-2: 반경 내 제휴처 조회
     @GetMapping("/{eventId}/partners/nearby")
     public ResponseEntity<ApiResponse<List<PlaceResponseDto>>> getNearbyPartnerStores(
             @PathVariable Long eventId
@@ -53,7 +52,7 @@ public class EventController {
         return ResponseEntity.ok(ApiResponse.success(storeList));
     }
 
-    // ✅ 2단계-3: 제휴처 등록
+    // 2-3: 제휴처 등록
     @PostMapping("/{eventId}/partners")
     public ResponseEntity<Void> registerPartnerStores(@PathVariable Long eventId,
                                                       @RequestBody PartnerStoreRequest request) {
@@ -68,15 +67,5 @@ public class EventController {
         eventService.addCouponToEvent(eventId, couponDto);
         return ResponseEntity.ok().build();
     }
-
-//    @GetMapping("/current")
-//    public ResponseEntity<ApiResponse<EventDetailResponseDto>> getCurrentEvent() {
-//        return eventServiceImpl.getCurrentEvent()
-//                .map(event -> {
-//                    EventDetailResponseDto dto = EventDetailResponseDto.from(event);
-//                    return ResponseEntity.ok(ApiResponse.success(dto));
-//                })
-//                .orElse(ResponseEntity.ok(ApiResponse.success(null))); // 이벤트 없음 처리
-//    }
 }
 
