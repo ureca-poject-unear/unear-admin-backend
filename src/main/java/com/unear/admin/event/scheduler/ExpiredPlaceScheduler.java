@@ -21,9 +21,8 @@ public class ExpiredPlaceScheduler {
        eventScheduleService.activateTodayEvent();
    }
 
-    // @Scheduled(fixedDelay = 100000) // 10초마다 실행
+    // @Scheduled(fixedDelay = 100000)
     // public void testRunCleanupTask() {
-    //     System.out.println("테스트 실행됨");
     //     expiredPopupStoreCleanupService.cleanUpExpiredPopupStores();
     //     eventScheduleService.activateTodayEvent();
     // }
