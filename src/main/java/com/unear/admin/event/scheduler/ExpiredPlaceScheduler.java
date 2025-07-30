@@ -15,16 +15,16 @@ public class ExpiredPlaceScheduler {
     private final EventScheduleService eventScheduleService;
 
     @Transactional
-//    @Scheduled(cron = "0 0 0 * * *")
-//    public void runCleanupTask() {
-//        expiredPopupStoreCleanupService.cleanUpExpiredPopupStores(); // ← 아래 순서로 위임
-//        eventScheduleService.activateTodayEvent();
-//    }
+   @Scheduled(cron = "0 0 0 * * *")
+   public void runCleanupTask() {
+       expiredPopupStoreCleanupService.cleanUpExpiredPopupStores(); // ← 아래 순서로 위임
+       eventScheduleService.activateTodayEvent();
+   }
 
-    @Scheduled(fixedDelay = 100000) // 10초마다 실행
-    public void testRunCleanupTask() {
-        System.out.println("테스트 실행됨");
-        expiredPopupStoreCleanupService.cleanUpExpiredPopupStores();
-        eventScheduleService.activateTodayEvent();
-    }
+    // @Scheduled(fixedDelay = 100000) // 10초마다 실행
+    // public void testRunCleanupTask() {
+    //     System.out.println("테스트 실행됨");
+    //     expiredPopupStoreCleanupService.cleanUpExpiredPopupStores();
+    //     eventScheduleService.activateTodayEvent();
+    // }
 }
