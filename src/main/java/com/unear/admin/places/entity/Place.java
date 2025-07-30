@@ -56,10 +56,6 @@ public class Place {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    public void setEventCode(EventType eventCode) {
-        this.eventCode = eventCode;
-    }
-
     public void updatePlaceInfo(String placeName, String placeDesc, String address,
                                 String tel, BigDecimal latitude, BigDecimal longitude,
                                 String benefitCategory, Integer startTime, Integer endTime,
