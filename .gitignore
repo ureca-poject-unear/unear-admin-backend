@@ -40,3 +40,4 @@ out/
 ### yml ###
 application-local.yml
 application-secret.yml
+resources/static/dashboard.html
