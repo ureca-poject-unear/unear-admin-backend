@@ -7,4 +7,6 @@ import java.util.List;
 public interface EventPlaceService {
 
     void addEventPlace(List<EventPlaceRequestDto> requestList);
+
+
 }

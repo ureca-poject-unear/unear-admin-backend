@@ -26,14 +26,9 @@ public class EventPlaceServiceImpl implements EventPlaceService {
     private final EventRepository eventRepository;
     private final PlaceRepository placeRepository;
 
-    private static final int MAX_EVENT_PLACES = 3;
 
     @Override
     public void addEventPlace(List<EventPlaceRequestDto> requestList) {
-        if (requestList.size() > MAX_EVENT_PLACES) {
-             throw new BusinessException(ErrorCode.INVALID_REQUEST);
-         }
-
         List<EventPlace> eventPlaces = requestList.stream()
                 .map(dto -> {
                     Event event = eventRepository.findById(dto.getEventId())

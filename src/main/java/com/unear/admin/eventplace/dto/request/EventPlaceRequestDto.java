@@ -2,7 +2,6 @@ package com.unear.admin.eventplace.dto.request;
 
 
 import com.unear.admin.common.enums.EventType;
-import com.unear.admin.common.enums.PlaceCategory;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.eventplace.entity.EventPlace;
 import com.unear.admin.places.entity.Place;
