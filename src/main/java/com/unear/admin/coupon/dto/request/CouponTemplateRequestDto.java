@@ -56,7 +56,7 @@ public class CouponTemplateRequestDto {
             throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
         }
 
-        entity.update(
+        entity.updateFromDto(
                 couponName,
                 discountCode,
                 remainingQuantity,

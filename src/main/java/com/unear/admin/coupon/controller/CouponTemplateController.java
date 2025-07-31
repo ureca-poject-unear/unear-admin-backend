@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.unear.admin.common.message.ResponseMessage.*;
+
 
 @RestController
 @RequestMapping("/admin/coupons")
@@ -20,10 +22,10 @@ public class CouponTemplateController {
     private final CouponTemplateService couponTemplateService;
 
     @CouponTemplateApiDocs.PostCouponTemplate
-    @PostMapping    //create
+    @PostMapping
     public ResponseEntity<?> createGeneralCoupon(@RequestBody @Valid CouponTemplateRequestDto dto) {
         couponTemplateService.createGeneralCoupon(dto);
-        return ResponseEntity.ok("일반 쿠폰 생성 완료");
+        return ResponseEntity.ok(COUPON_CREATE_SUCCESS);
     }
 
     @CouponTemplateApiDocs.GetCouponTemplate
@@ -43,7 +45,7 @@ public class CouponTemplateController {
     @PutMapping("/{id}")
     public ResponseEntity<String> updateCoupon(@PathVariable Long id, @RequestBody @Valid CouponTemplateRequestDto dto) {
         couponTemplateService.updateCoupon(id, dto);
-        return ResponseEntity.ok("쿠폰이 성공적으로 수정되었습니다.");
+        return ResponseEntity.ok(COUPON_UPDATE_SUCCESS);
     }
 
 
@@ -51,7 +53,7 @@ public class CouponTemplateController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCoupon(@PathVariable Long id) {
         couponTemplateService.deleteCoupon(id);
-        return ResponseEntity.ok("쿠폰이 성공적으로 삭제되었습니다.");
+        return ResponseEntity.ok(COUPON_DELETE_SUCCESS);
     }
 
 
