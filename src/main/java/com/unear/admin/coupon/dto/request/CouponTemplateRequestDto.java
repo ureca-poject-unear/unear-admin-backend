@@ -43,7 +43,7 @@ public class CouponTemplateRequestDto {
                 .markerCode(markerCode)
                 .membershipCode(membershipCode)
                 .discountPolicyDetailId(discountPolicyId)
-                .event(event)
+                .isDeleted(false)
                 .build();
     }
 
@@ -56,7 +56,7 @@ public class CouponTemplateRequestDto {
             throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
         }
 
-        entity.update(
+        entity.updateFromDto(
                 couponName,
                 discountCode,
                 remainingQuantity,

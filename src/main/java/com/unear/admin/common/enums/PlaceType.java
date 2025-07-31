@@ -30,4 +30,6 @@ public enum PlaceType {
         }
         throw new IllegalArgumentException("Invalid PlaceType code: " + code);
     }
+
+
 }

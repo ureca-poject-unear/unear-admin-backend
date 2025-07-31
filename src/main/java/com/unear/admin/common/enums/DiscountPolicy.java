@@ -28,4 +28,17 @@ public enum DiscountPolicy {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid DiscountPolicy: " + value));
     }
+
+    public boolean isUpdatable() {
+        return this != COUPON_FCFS;
+    }
+
+    public boolean isModifiable() {
+        return this != COUPON_FCFS;
+    }
+
+    public boolean isReadable() {
+        return this != COUPON_FCFS;
+    }
+
 }

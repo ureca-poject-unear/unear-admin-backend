@@ -23,65 +23,56 @@ public class CouponTemplateServiceImpl implements CouponTemplateService {
     private final CouponTemplateRepository couponTemplateRepository;
     private final EventRepository eventRepository;
 
-    @Override   //create
+    @Override
     public void createGeneralCoupon(CouponTemplateRequestDto dto) {
-        if (dto.getDiscountCode() == DiscountPolicy.COUPON_FCFS) {
-            throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY); // 선착순은 허용하지 않음
-        }
-
-        if (dto.getDiscountPolicyId() == null) {
-            throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
-        }
+        validateModifiableCoupon(dto.getDiscountCode(), dto.getDiscountPolicyId());
 
         CouponTemplate entity = dto.toEntity(null); // 일반 쿠폰이므로 이벤트 없음
         couponTemplateRepository.save(entity);
     }
 
-    @Override   //read
+    @Override
     public List<CouponTemplateResponseDto> getAllCoupons() {
         return couponTemplateRepository.findAll().stream()
                 .map(CouponTemplateResponseDto::from)
                 .collect(Collectors.toList());
     }
 
-    @Override       //detail read
+    @Override
     public CouponTemplateResponseDto getCoupon(Long id) {
         CouponTemplate coupon = couponTemplateRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COUPON_NOT_FOUND));
 
-        if (coupon.getDiscountCode().equals(DiscountPolicy.COUPON_FCFS.name())) {
-            throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY); // 선착순은 조회 불가
+        if (!coupon.getDiscountCode().isReadable()) {
+            throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
         }
 
         return CouponTemplateResponseDto.from(coupon);
     }
 
-    @Override   //update
+    @Override
     public void updateCoupon(Long id, CouponTemplateRequestDto dto) {
         CouponTemplate coupon = couponTemplateRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COUPON_NOT_FOUND));
 
-        if (coupon.getDiscountCode() == DiscountPolicy.COUPON_FCFS) {
+        if (!coupon.getDiscountCode().isModifiable()) {
             throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
         }
 
         dto.updateEntity(coupon);
     }
 
-
-    @Override   //
+    @Override
     public void deleteCoupon(Long id) {
         CouponTemplate coupon = couponTemplateRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.COUPON_NOT_FOUND));
 
-        // 선착순 쿠폰이면 삭제 금지
-        if (coupon.getDiscountCode() == DiscountPolicy.COUPON_FCFS) {
+        if (!coupon.getDiscountCode().isModifiable()) {
             throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
         }
 
         couponTemplateRepository.delete(coupon);
     }
-
 
     @Override
     public void saveCouponTemplate(Long eventId, CouponTemplateRequestDto dto) {
@@ -91,4 +82,12 @@ public class CouponTemplateServiceImpl implements CouponTemplateService {
         couponTemplateRepository.save(dto.toEntity(event));
     }
 
+    /**
+     * 일반 쿠폰 생성 시 유효성 검사
+     */
+    private void validateModifiableCoupon(DiscountPolicy discountCode, Long discountPolicyId) {
+        if (!discountCode.isModifiable() || discountPolicyId == null) {
+            throw new BusinessException(ErrorCode.INVALID_COUPON_POLICY);
+        }
+    }
 }
