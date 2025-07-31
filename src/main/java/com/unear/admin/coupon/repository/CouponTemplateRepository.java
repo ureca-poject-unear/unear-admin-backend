@@ -12,14 +12,14 @@ public interface CouponTemplateRepository extends JpaRepository<CouponTemplate, 
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("""
-        UPDATE CouponTemplate ct
-        SET ct.isDeleted = true
-        WHERE ct.couponTemplateId IN (
-            SELECT e.couponTemplate.couponTemplateId
-            FROM Event e
-            WHERE e.endAt < :today
-              AND e.couponTemplate IS NOT NULL
-        )
-    """)
-    void softDeleteExpiredPopupCoupons(@Param("today") LocalDate today);
+    UPDATE CouponTemplate ct
+    SET ct.isDeleted = true
+    WHERE ct.couponTemplateId IN (
+        SELECT e.couponTemplate.couponTemplateId
+        FROM Event e
+        WHERE e.endAt < :currentDate
+          AND e.couponTemplate IS NOT NULL
+    )
+""")
+    void softDeleteExpiredPopupCoupons(@Param("currentDate") LocalDate currentDate);
 }
