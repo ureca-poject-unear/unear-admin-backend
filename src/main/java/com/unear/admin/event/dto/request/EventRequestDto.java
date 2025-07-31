@@ -1,5 +1,6 @@
 package com.unear.admin.event.dto.request;
 
+import com.unear.admin.common.message.ResponseMessage;
 import com.unear.admin.event.entity.Event;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -20,17 +21,17 @@ public class EventRequestDto {
     private String eventDescription;
 
     @NotNull
-    @DecimalMin(value = "-90.0", message = "위도는 -90 이상이어야 합니다")
-    @DecimalMax(value = "90.0", message = "위도는 90 이하여야 합니다")
+    @DecimalMin(value = "-90.0", message = ResponseMessage.LATITUDE_MIN)
+    @DecimalMax(value = "90.0", message = ResponseMessage.LATITUDE_MAX)
     private BigDecimal latitude;
 
     @NotNull
-    @DecimalMin(value = "-180.0", message = "경도는 -180 이상이어야 합니다")
-    @DecimalMax(value = "180.0", message = "경도는 180 이하여야 합니다")
+    @DecimalMin(value = "-180.0", message = ResponseMessage.LONGITUDE_MIN)
+    @DecimalMax(value = "180.0", message =  ResponseMessage.LONGITUDE_MAX)
     private BigDecimal longitude;
 
     @NotNull
-    @Min(value = 1, message = "반경은 1 이상이어야 합니다")
+    @Min(value = 1, message = ResponseMessage.RADIUS_MIN)
     private Integer radiusMeter;
 
     @NotNull
@@ -39,7 +40,7 @@ public class EventRequestDto {
     @NotNull
     private LocalDate endAt;
 
-    public Event toEntity() {
+    public Event toEntity(boolean isActive) {
         return Event.builder()
                 .eventName(eventName)
                 .eventDescription(eventDescription)
@@ -48,6 +49,7 @@ public class EventRequestDto {
                 .radiusMeter(radiusMeter)
                 .startAt(startAt)
                 .endAt(endAt)
+                .isActive(isActive)
                 .build();
     }
 }

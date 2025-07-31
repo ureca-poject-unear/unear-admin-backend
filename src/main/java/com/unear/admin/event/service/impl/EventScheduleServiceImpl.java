@@ -20,7 +20,7 @@ public class EventScheduleServiceImpl implements EventScheduleService {
         LocalDate today = LocalDate.now();
 
         // 1. 기존 이벤트 비활성화
-        eventRepository.deactivateAllEvents();
+        eventRepository.deactivateEventsWithinDate(today);
 
         // 2. 오늘 날짜에 맞는 이벤트 찾아 활성화
         eventRepository.findNextEventToActivate(today).ifPresent(e -> e.setIsActive(true));
