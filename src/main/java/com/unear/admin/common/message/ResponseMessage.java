@@ -11,4 +11,7 @@ public class ResponseMessage {
     public static final String LONGITUDE_MIN = "경도는 -180 이상이어야 합니다";
     public static final String LONGITUDE_MAX = "경도는 180 이하여야 합니다";
     public static final String RADIUS_MIN = "반경은 1 이상이어야 합니다";
+    public static final String PLACE_REGISTER_SUCCESS = "제휴처 등록 성공";
+    public static final String PLACE_UPDATE_SUCCESS = "제휴처 수정 성공";
+    public static final String PLACE_DELETE_SUCCESS = "제휴처 삭제 성공";
 }

@@ -81,6 +81,8 @@ public class PlaceServiceImpl implements PlaceService {
                     .eventCode(place.getEventCode())
                     .build();
             eventPlaceRepository.save(mapping);
+
+            placeRepository.save(place);
         }
     }
 
