@@ -11,21 +11,17 @@ import java.util.Optional;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    /**
-     * 현재 활성화된 이벤트 (isActive = true)
-     */
+    //현재 활성화된 이벤트 (isActive = true)
     Optional<Event> findByIsActiveTrue();
 
-    /**
-     * 모든 이벤트 isActive = false 로 초기화
-     */
     @Modifying
-    @Query("UPDATE Event e SET e.isActive = false")
-    void deactivateAllEvents();
+    @Query("""
+    UPDATE Event e SET e.isActive = false
+    WHERE :today BETWEEN e.startAt AND e.endAt AND e.isActive = true
+""")
+    void deactivateEventsWithinDate(@Param("today") LocalDate today);
 
-    /**
-     * 오늘 날짜에 해당하는 이벤트 1개 조회 (isActive = false 인 것)
-     */
+    // 오늘 날짜에 해당하는 이벤트 1개 조회 (isActive = false 인 것)
     @Query("""
         SELECT e FROM Event e
         WHERE e.startAt <= :today AND e.endAt >= :today

@@ -23,7 +23,9 @@ public record EventDetailResponseDto(
         List<PlaceResponseDto> partnerStores,
         List<CouponTemplateResponseDto> coupons
 ) {
-    public static EventDetailResponseDto from(Event event) {
+    public static EventDetailResponseDto of(Event event,
+                                            List<PlaceResponseDto> partnerStores,
+                                            List<CouponTemplateResponseDto> coupons) {
         return EventDetailResponseDto.builder()
                 .eventId(event.getUnearEventsId())
                 .eventName(event.getEventName())
@@ -33,8 +35,8 @@ public record EventDetailResponseDto(
                 .radius(event.getRadiusMeter())
                 .startDate(event.getStartAt())
                 .endDate(event.getEndAt())
-                .partnerStores(List.of()) 
-                .coupons(List.of())
+                .partnerStores(partnerStores)
+                .coupons(coupons)
                 .build();
     }
 

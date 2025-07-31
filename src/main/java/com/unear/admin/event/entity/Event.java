@@ -1,5 +1,6 @@
 package com.unear.admin.event.entity;
 
+import com.unear.admin.common.util.LocationUtils;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.places.entity.Place;
@@ -59,5 +60,17 @@ public class Event {
                 .startAt(dto.getStartAt())
                 .endAt(dto.getEndAt())
                 .build();
+    }
+
+    public boolean isWithinRadius(Place place) {
+        double distance = LocationUtils.calculateDistance(
+                this.latitude.doubleValue(), this.longitude.doubleValue(),
+                place.getLatitude().doubleValue(), place.getLongitude().doubleValue()
+        );
+        return distance <= this.radiusMeter;
+    }
+
+    public void assignCoupon(CouponTemplate coupon) {
+        this.couponTemplate = coupon;
     }
 }

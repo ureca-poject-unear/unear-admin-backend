@@ -3,13 +3,10 @@ package com.unear.admin.event.controller;
 import com.unear.admin.common.docs.event.EventDocs;
 import com.unear.admin.common.response.ApiResponse;
 import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
-import com.unear.admin.event.dto.request.EventPlaceRegistrationRequest;
 import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.event.dto.request.PartnerStoreRequest;
-import com.unear.admin.event.dto.response.EventDetailResponseDto;
 import com.unear.admin.event.service.EventService;
 
-import com.unear.admin.event.service.impl.EventServiceImpl;
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import com.unear.admin.places.dto.responsedto.PlaceResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.unear.admin.common.message.ResponseMessage.POPUP_STORE_REGISTERED;
 
 
 @RestController
@@ -40,7 +39,7 @@ public class EventController {
             @RequestBody PlaceRequestDto popupDto
     ) {
         eventService.registerPopupStore(eventId, popupDto);
-        return ResponseEntity.ok(ApiResponse.success("팝업스토어 등록 완료"));
+        return ResponseEntity.ok(ApiResponse.success(POPUP_STORE_REGISTERED));
     }
 
     // 2-2: 반경 내 제휴처 조회
