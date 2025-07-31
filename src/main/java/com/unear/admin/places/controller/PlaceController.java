@@ -2,6 +2,7 @@ package com.unear.admin.places.controller;
 
 import com.unear.admin.common.docs.event.EventDocs;
 import com.unear.admin.common.docs.place.PlaceDocs;
+import com.unear.admin.common.message.ResponseMessage;
 import com.unear.admin.common.response.ApiResponse;
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import com.unear.admin.places.dto.responsedto.PlaceResponseDto;
@@ -29,7 +30,7 @@ public class PlaceController {
             @RequestBody @Valid PlaceRequestDto request
     ) {
         placeService.createPlace(request);
-        return ResponseEntity.ok(ApiResponse.success("제휴처 등록 성공"));
+        return ResponseEntity.ok(ApiResponse.success(ResponseMessage.PLACE_REGISTER_SUCCESS));
     }
 
     @PlaceDocs.GetAllPlace
@@ -47,14 +48,14 @@ public class PlaceController {
     ) {
         request.setPlaceId(placeId);
         placeService.updatePlace(request);
-        return ResponseEntity.ok(ApiResponse.success("제휴처 수정 성공"));
+        return ResponseEntity.ok(ApiResponse.success(ResponseMessage.PLACE_UPDATE_SUCCESS));
     }
 
     @PlaceDocs.DeletePlace
     @DeleteMapping
     public ResponseEntity<ApiResponse<String>> deletePlace(@RequestParam Long placeId) {
         placeService.deletePlace(placeId);
-        return ResponseEntity.ok(ApiResponse.success("제휴처 삭제 성공"));
+        return ResponseEntity.ok(ApiResponse.success(ResponseMessage.PLACE_DELETE_SUCCESS));
     }
 
     @PlaceDocs.GetEventRadius
