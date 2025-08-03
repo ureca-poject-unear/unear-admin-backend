@@ -5,6 +5,7 @@ import com.unear.admin.common.response.ApiResponse;
 import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.event.dto.request.EventRequestDto;
 import com.unear.admin.event.dto.request.PartnerStoreRequest;
+import com.unear.admin.event.dto.response.EventDetailResponseDto;
 import com.unear.admin.event.service.EventService;
 
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
@@ -30,6 +31,12 @@ public class EventController {
     public ResponseEntity<Long> registerBaseEvent(@RequestBody EventRequestDto eventDto) {
         Long eventId = eventService.createBaseEvent(eventDto);
         return ResponseEntity.ok(eventId);
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<ApiResponse<EventDetailResponseDto>> getEventInfo(@PathVariable Long eventId) {
+        EventDetailResponseDto eventInfo = eventService.getEventById(eventId);
+        return ResponseEntity.ok(ApiResponse.success(eventInfo));
     }
 
     // 2-1: 팝업스토어 등록

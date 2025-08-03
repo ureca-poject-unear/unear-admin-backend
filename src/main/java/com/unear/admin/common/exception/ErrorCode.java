@@ -20,7 +20,8 @@ public enum ErrorCode {
     COUPON_NOT_FOUND(HttpStatus.NOT_FOUND, "COUPON_NOT_FOUND", "쿠폰을 찾을 수 없습니다."),
     NOT_FOUND_EVENT(HttpStatus.NOT_FOUND, "NOT_FOUND_EVENT", "이벤트를 찾을 수 없습니다."),
     NOT_FOUND_PLACE(HttpStatus.NOT_FOUND, "NOT_FOUND_PLACE", "제휴처를 찾을 수 없습니다."),
-    OUT_OF_EVENT_RADIUS(HttpStatus.BAD_REQUEST,"OUT_OF_EVENT_RADIUS", "이벤트 범위를 벗어났습니다.")
+    OUT_OF_EVENT_RADIUS(HttpStatus.BAD_REQUEST,"OUT_OF_EVENT_RADIUS", "이벤트 범위를 벗어났습니다."),
+    DUPLICATE_EVENT_PERIOD(HttpStatus.CONFLICT,"DUPLICATE_EVENT_PERIOD", "이미 진행중인 이벤트가 있습니다.")
     ;
 
 

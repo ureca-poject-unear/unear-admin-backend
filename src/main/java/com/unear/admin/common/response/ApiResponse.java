@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 public class ApiResponse<T> {
 
     private int resultCode;
-    private String codeName;
+    private String code;
     private String message;
     private T data;
 

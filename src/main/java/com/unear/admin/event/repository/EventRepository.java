@@ -29,4 +29,18 @@ public interface EventRepository extends JpaRepository<Event, Long> {
         ORDER BY e.startAt ASC
     """)
     Optional<Event> findNextEventToActivate(@Param("today") LocalDate today);
+
+    @Query("""
+    SELECT COUNT(e) > 0 FROM Event e
+    WHERE e.startAt <= :endAt AND e.endAt >= :startAt
+""")
+    boolean existsEventDuringPeriod(@Param("startAt") LocalDate startAt,
+                                    @Param("endAt") LocalDate endAt);
+
+    @Modifying
+    @Query("""
+    UPDATE Event e SET e.isActive = false
+    WHERE e.endAt < :today AND e.isActive = true
+""")
+    void softDeleteExpiredEvents(@Param("today") LocalDate today);
 }
