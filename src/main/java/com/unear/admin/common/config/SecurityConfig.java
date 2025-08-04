@@ -37,29 +37,14 @@ public class SecurityConfig {
             "/swagger-resources/**",
             "/webjars/**",
             "/admin/summary/**", // 시각화용
+            "/api/admin/summary",
+            "/api/admin/summary/**",
             "/dashboard.html",
             "/event_dashboard.html",
             "/event_stats.html",
             "/static/**"
 
     };
-
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .securityMatchers(matchers -> matchers.requestMatchers("/**"))
-//                .csrf(csrf -> csrf.disable())
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers(WHITE_LIST).permitAll()
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form.disable())
-//                .httpBasic(basic -> basic.disable());
-//
-//        return http.build();
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource)
