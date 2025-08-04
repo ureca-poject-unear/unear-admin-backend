@@ -25,8 +25,8 @@ public class SecurityConfig {
     private final CustomAdminDetailsService customAdminDetailsService;
 
     private static final String[] WHITE_LIST = {
-            "/api/admina/auth/login",
-            "/api/admin/auth/logout",
+            "/auth/login",
+            "/auth/logout",
             "/auth/**",
             "/v3/api-docs/**",
             "/swagger-ui/**",
