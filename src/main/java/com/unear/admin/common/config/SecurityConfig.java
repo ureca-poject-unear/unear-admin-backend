@@ -94,7 +94,7 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500",
                 "http://localhost:63342", "https://www.admin.unear.site", "http://www.admin.unear.site", "https://dev.unear.site", "http://dev.unear.site")); // 운영 시 도메인 명시
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With"));
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
 
