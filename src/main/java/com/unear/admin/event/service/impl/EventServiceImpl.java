@@ -7,6 +7,7 @@ import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
 import com.unear.admin.event.dto.request.EventRequestDto;
+import com.unear.admin.event.dto.response.EventDetailResponseDto;
 import com.unear.admin.event.entity.Event;
 import com.unear.admin.event.repository.EventRepository;
 import com.unear.admin.event.service.EventActivationPolicy;
@@ -38,8 +39,16 @@ public class EventServiceImpl implements EventService {
     // 1. 이벤트 기본 정보 등록
     @Override
     public Long createBaseEvent(EventRequestDto dto) {
+        LocalDate startAt = dto.getStartAt();
+        LocalDate endAt = dto.getEndAt();
 
-        boolean isActive = activationPolicy.shouldActivate(dto.getStartAt(), dto.getEndAt());
+        // 기간 중복 확인
+        boolean exists = eventRepository.existsEventDuringPeriod(startAt, endAt);
+        if (exists) {
+            throw new BusinessException(ErrorCode.DUPLICATE_EVENT_PERIOD);
+        }
+
+        boolean isActive = activationPolicy.shouldActivate(startAt, endAt);
         Event event = dto.toEntity(isActive);
         return eventRepository.save(event).getUnearEventsId();
     }
@@ -119,5 +128,13 @@ public class EventServiceImpl implements EventService {
         CouponTemplate coupon = dto.toEntity(event);
         couponTemplateRepository.save(coupon);
         event.assignCoupon(coupon);
+    }
+
+    @Override
+    public EventDetailResponseDto getEventById(Long eventId) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.EVENT_NOT_FOUND));
+
+        return EventDetailResponseDto.of(event,null,null); // 또는 .of(event) 등 DTO 매핑 메서드
     }
 }

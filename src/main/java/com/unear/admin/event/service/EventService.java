@@ -3,6 +3,7 @@ package com.unear.admin.event.service;
 import com.unear.admin.coupon.dto.request.CouponTemplateRequestDto;
 import com.unear.admin.event.dto.request.EventRequestDto;
 
+import com.unear.admin.event.dto.response.EventDetailResponseDto;
 import com.unear.admin.places.dto.requestdto.PlaceRequestDto;
 import com.unear.admin.places.dto.responsedto.PlaceResponseDto;
 
@@ -25,5 +26,8 @@ public interface EventService {
 
     // 3단계: 선착순 쿠폰 등록 및 이벤트 연동
     void addCouponToEvent(Long eventId, CouponTemplateRequestDto dto);
+
+
+    EventDetailResponseDto getEventById(Long eventId);
 
 }

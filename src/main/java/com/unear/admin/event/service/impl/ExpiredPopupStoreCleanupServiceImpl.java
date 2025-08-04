@@ -1,6 +1,7 @@
 package com.unear.admin.event.service.impl;
 
 import com.unear.admin.coupon.repository.CouponTemplateRepository;
+import com.unear.admin.event.repository.EventRepository;
 import com.unear.admin.event.service.ExpiredPopupStoreCleanupService;
 import com.unear.admin.eventplace.repository.EventPlaceRepository;
 import com.unear.admin.places.repository.PlaceRepository;
@@ -19,6 +20,7 @@ public class ExpiredPopupStoreCleanupServiceImpl implements ExpiredPopupStoreCle
     private final EventPlaceRepository eventPlaceRepository;
     private final PlaceRepository placeRepository;
     private final CouponTemplateRepository couponTemplateRepository;
+    private final EventRepository eventRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -28,6 +30,9 @@ public class ExpiredPopupStoreCleanupServiceImpl implements ExpiredPopupStoreCle
     public void cleanUpExpiredPopupStores() {
         LocalDate today = LocalDate.now();
 
+        //event 종료 처리
+        eventRepository.softDeleteExpiredEvents(today);
+
         // 쿠폰 삭제
         couponTemplateRepository.softDeleteExpiredPopupCoupons(today);
 
@@ -36,6 +41,8 @@ public class ExpiredPopupStoreCleanupServiceImpl implements ExpiredPopupStoreCle
 
         // event_places 삭제
         eventPlaceRepository.deleteExpiredPopupEventPlaces(today);
+
+
 
         cleanUpExpiredGeneralPlaces(today);
 
