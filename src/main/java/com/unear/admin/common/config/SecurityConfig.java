@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final CustomAdminDetailsService customAdminDetailsService;
 
     private static final String[] WHITE_LIST = {
-            "/api/admin/longin",
+            "/api/admin/login",
             "/api/admin/logout",
             "/auth/**",
             "/v3/api-docs/**",
@@ -66,7 +66,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("http://127.0.0.1:5500",
-                "http://localhost:63342", "https://www.admin.unear.site/", "http://www.admin.unear.site/", "https://dev.unear.site/", "http://dev.unear.site/")); // 운영 시 도메인 명시
+                "http://localhost:63342", "https://www.admin.unear.site", "http://www.admin.unear.site", "https://dev.unear.site", "http://dev.unear.site")); // 운영 시 도메인 명시
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization"));
