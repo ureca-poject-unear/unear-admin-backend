@@ -20,7 +20,7 @@ import static com.unear.admin.common.message.ResponseMessage.POPUP_STORE_REGISTE
 
 
 @RestController
-@RequestMapping("/admin/events")
+@RequestMapping("/events")
 @RequiredArgsConstructor
 public class EventController {
 
