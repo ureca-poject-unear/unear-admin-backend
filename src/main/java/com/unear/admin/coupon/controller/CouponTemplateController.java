@@ -15,7 +15,7 @@ import static com.unear.admin.common.message.ResponseMessage.*;
 
 
 @RestController
-@RequestMapping("/admin/coupons")
+@RequestMapping("/coupons")
 @RequiredArgsConstructor
 public class CouponTemplateController {
 
