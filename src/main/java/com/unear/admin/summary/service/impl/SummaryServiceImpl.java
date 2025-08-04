@@ -71,7 +71,7 @@ public class SummaryServiceImpl implements SummaryService {
                     .put(type, count);
         }
 
-        return grouped.entrySet().stream()
+        List<EventCompletionSummaryDto> result = grouped.entrySet().stream()
                 .map(entry -> {
                     String group = entry.getKey();
                     Map<String, Long> counts = entry.getValue();
@@ -87,7 +87,28 @@ public class SummaryServiceImpl implements SummaryService {
                 })
                 .sorted(Comparator.comparing(EventCompletionSummaryDto::getJoinCount).reversed())
                 .collect(Collectors.toList());
+
+        if (ageGroup == null && gender == null) {
+            long totalJoin = 0, totalDone = 0, totalDrop = 0;
+            for (EventCompletionSummaryDto dto : result) {
+                totalJoin += dto.getJoinCount();
+                totalDone += dto.getDoneCount();
+                totalDrop += dto.getDropCount();
+            }
+
+            double totalCompletionRate = totalJoin > 0 ? (double) totalDone / totalJoin : 0;
+            double totalDropRate = totalJoin > 0 ? (double) totalDrop / totalJoin : 0;
+
+            EventCompletionSummaryDto totalDto = new EventCompletionSummaryDto(
+                    "ALL", totalJoin, totalDone, totalDrop, totalCompletionRate, totalDropRate
+            );
+
+            result.add(0, totalDto);
+        }
+
+        return result;
     }
+
 
 
 
