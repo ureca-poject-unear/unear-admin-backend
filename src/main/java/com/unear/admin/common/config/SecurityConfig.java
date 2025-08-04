@@ -30,7 +30,13 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/swagger-resources/**",
-            "/webjars/**"
+            "/webjars/**",
+            "/admin/summary/**", // 시각화용
+            "/dashboard.html",
+            "/event_dashboard.html",
+            "/event_stats.html",
+            "/static/**"
+
     };
 
     @Bean
