@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class KeywordSummaryResponseDto {
     private String keyword;
-    private int userCount;
-    private int totalCount;
+    private Long count;
+    private Long distinctUserCount;
 }
