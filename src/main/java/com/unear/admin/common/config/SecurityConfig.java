@@ -38,11 +38,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/admin/summary/**", // 시각화용
             "/api/admin/summary",
-            "/api/admin/summary/**",
-            "/dashboard.html",
-            "/event_dashboard.html",
-            "/event_stats.html",
-            "/static/**"
+            "/api/admin/summary/**"
 
     };
 
