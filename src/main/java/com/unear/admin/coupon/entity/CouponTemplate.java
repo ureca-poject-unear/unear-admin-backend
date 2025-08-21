@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "coupon_templates")
@@ -31,9 +32,8 @@ public class CouponTemplate {
 
     private Integer remainingQuantity;
 
-    private LocalDate couponStart;
-
-    private LocalDate couponEnd;
+    private LocalDateTime couponStart;
+    private LocalDateTime couponEnd;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "marker_code", nullable = false)
@@ -53,8 +53,8 @@ public class CouponTemplate {
             String couponName,
             DiscountPolicy discountCode,
             Integer remainingQuantity,
-            LocalDate couponStart,
-            LocalDate couponEnd,
+            LocalDateTime couponStart,
+            LocalDateTime couponEnd,
             MembershipGrade membershipCode,
             PlaceType markerCode,
             Long discountPolicyDetailId
@@ -77,8 +77,8 @@ public class CouponTemplate {
             Long discountPolicyDetailId,
             DiscountPolicy discountCode,
             Integer remainingQuantity,
-            LocalDate couponStart,
-            LocalDate couponEnd,
+            LocalDateTime couponStart,
+            LocalDateTime couponEnd,
             PlaceType markerCode,
             MembershipGrade membershipCode
     ) {
