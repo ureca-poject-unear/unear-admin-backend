@@ -10,7 +10,7 @@ import com.unear.admin.common.exception.BusinessException;
 import com.unear.admin.common.exception.ErrorCode;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,8 +24,8 @@ public class CouponTemplateRequestDto {
     private Long discountPolicyId;
     private Integer remainingQuantity;
 
-    private LocalDate couponStart;
-    private LocalDate couponEnd;
+    private LocalDateTime couponStart;
+    private LocalDateTime couponEnd;
 
     private DiscountPolicy discountCode;
 
