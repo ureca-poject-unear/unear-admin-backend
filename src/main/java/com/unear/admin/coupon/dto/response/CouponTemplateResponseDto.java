@@ -4,7 +4,7 @@ import com.unear.admin.common.enums.DiscountPolicy;
 import com.unear.admin.coupon.entity.CouponTemplate;
 import lombok.Builder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 public record CouponTemplateResponseDto(
@@ -13,8 +13,8 @@ public record CouponTemplateResponseDto(
         DiscountPolicy discountPolicy,
         String discountPolicyLabel,
         Integer remainingQuantity,
-        LocalDate couponStart,
-        LocalDate couponEnd
+        LocalDateTime couponStart,
+        LocalDateTime couponEnd
 ) {
     public static CouponTemplateResponseDto from(CouponTemplate coupon) {
         return CouponTemplateResponseDto.builder()
